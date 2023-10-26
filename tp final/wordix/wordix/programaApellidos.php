@@ -8,7 +8,10 @@ include_once("wordix.php");
 /**************************************/
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* Vargas. Joaquin. Fai-4873. TUDW. joaquinivl95@gmail.com JoaquinIVL95  */
+/* Vargas. Joaquin. Fai-4873. TUDW. joaquinivl95@gmail.com. JoaquinIVL95
+Uñates, Federico. FAI - 4988. TUDW. fedee.unates.2001@gmail.com. FedeU18
+Zuluaga, Peláez, Mónica. FAI- 4356. TUDW.  MoniZuluagaP
+*/
 
 
 /* ****COMPLETAR***** */
