@@ -73,7 +73,7 @@ function cargarPartidas(){
         "intento" => "Adivinó la palabra en 2 intentos"
       ],
       [
-        "partida" => 1,
+        "partida" => 11,
         "palabra" => "VERDE",
         "jugador" => "fede",
         "puntaje" => 0,
@@ -91,25 +91,41 @@ function cargarPartidas(){
  */
 
     function llamarDatosPartidas ($numPartida){
-    /*STRING $partidaLlamada $cantPartidas */
+    /*STRING $partidasCargadas  */
         $partidasCargadas = cargarPartidas();
-        $partidaSeleccionada = $partidasCargadas[$numPartida];
-        
-        $countPartidas = count($partidasCargadas);
-        $cantPartidas = 0;
 
-        while ($cantPartidas < ($countPartidas+1) && $partidasCargadas != -1){
-            if ($numPartida = $cantPartidas){
-                echo "******************************** \n";
-                echo "Partida WORDIX ". [$cantPartidas];
-                
-            }else{
-                $cantPartidas = $cantPartidas + 1;
-                echo $cantPartidas;
-            }
+        $i = 0;
 
+        while($i< $numPartida){
+          if($partidasCargadas[$i]["partida"] == $numPartida){
+            echo "****************************************\n";
+            echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
+            echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
+            echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
+            echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
+            echo "****************************************\n";
+
+            break;
+          }else{
+            $i = $i +1;
+          }
         }
-    }
+
+      }
+
+        // foreach ($partidasCargadas as $partidas){
+        //   echo "************************************\n";
+        //   echo "Partida WORDIX " . $partidas["partida"] . ": palabra: " . $partidas["palabra"] . "\n";
+        //   echo "Jugador: " . $partidas["jugador"] . "\n";
+        //   echo "Puntaje: " . $partidas["puntaje"] . "puntos \n";
+        //   echo "Intentos: " . $partidas["intento"] . "\n";
+        //   echo "************************************\n";
+        //   echo "\n";
+
+        // }
+        
+        
+    
 
 
 echo "ingrese numero de partida que desea ver: ";

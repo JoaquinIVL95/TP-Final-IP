@@ -121,6 +121,33 @@ function cargarPartidas(){
   return $coleccionPartidas;
 }
 
+/**
+ * Funcion para llamar datos de partidas jugadas
+ * @param INT $numPartida
+ */
+
+ function llamarDatosPartidas ($numPartida){
+  /*STRING $partidasCargadas  */
+      $partidasCargadas = cargarPartidas();
+
+      $i = 0;
+
+      while($i< $numPartida){
+        if($partidasCargadas[$i]["partida"] == $numPartida){
+          echo "****************************************\n";
+          echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
+          echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
+          echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
+          echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
+          echo "****************************************\n";
+
+          break;
+        }else{
+          $i = $i +1;
+        }
+      }
+
+    }
 
 
 
