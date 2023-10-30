@@ -121,6 +121,9 @@ function cargarPartidas(){
   return $coleccionPartidas;
 }
 
+function seleccionarOpcion(){
+  
+}
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
