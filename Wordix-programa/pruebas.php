@@ -135,7 +135,7 @@ function solicitarNumeroEntre($min, $max)
       
 
     }
-    llamarDatosPartidas();
+    
 
         // foreach ($partidasCargadas as $partidas){
         //   echo "************************************\n";
@@ -155,3 +155,24 @@ function solicitarNumeroEntre($min, $max)
 // echo "ingrese numero de partida que desea ver: ";
 // $partidaNum= trim(fgets(STDIN));
 // $datos = llamarDatosPartidas($partidaNum);
+
+$coleccionPalabras = [
+  "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
+  "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+  "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
+  "AVION", "ABETO", "BICHO", "CABRA", "CEJAS"
+];
+
+function agregarPalabra ($palabraNueva){
+
+  
+
+  array_push ($coleccionPalabras, $palabraNueva);
+
+  return $coleccionPalabras;
+}
+$coleccionPalabras= agregarPalabra("ZAPAT");
+
+echo $coleccionPalabras[count($coleccionPalabras)-1];
+
+echo count($coleccionPalabras);
