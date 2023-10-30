@@ -126,27 +126,25 @@ function cargarPartidas(){
  * @param INT $numPartida
  */
 
- function llamarDatosPartidas ($numPartida){
+function llamarDatosPartidas (){
   /*STRING $partidasCargadas  */
-      $partidasCargadas = cargarPartidas();
+  $partidasCargadas = cargarPartidas();
 
-      $i = 0;
-      for ($i = 0 ; $i < count($partidasCargadas); $i++){
-        if($partidasCargadas[$i]["partida"] == $numPartida){
-          echo "****************************************\n";
-          echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
-          echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
-          echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
-          echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
-          echo "****************************************\n";
+  echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
 
-          break;
-        }else{
-          $i = $i +1;
-        }
-      }
+  $partidaValida = solicitarNumeroEntre(0 , count($partidasCargadas)-1); 
+  
+  
 
-    }
+    
+      echo "****************************************\n";
+      echo "Partida WORDIX " . $partidasCargadas[$partidaValida-1]["partida"] . ": Palabra: " . $partidasCargadas[$partidaValida-1]["palabra"] . "\n";
+      echo "Jugador: " . $partidasCargadas[$partidaValida-1]["jugador"] . "\n";
+      echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
+      echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
+      echo "****************************************\n";
+
+}
 
 /**
  * Muestra el menú de opciones y retorna el número de la opcion

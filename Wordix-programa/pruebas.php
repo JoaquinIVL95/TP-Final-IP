@@ -83,6 +83,29 @@ function cargarPartidas(){
     return $coleccionPartidas;
   }
 
+  /**
+ *  Se asegura que el usuario ingrese un número que esté dentro de un rango
+ * @param int $min, $max
+ * @return int
+ */
+function solicitarNumeroEntre($min, $max)
+{
+    //int $numero
+
+    $numero = trim(fgets(STDIN));
+
+    if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
+        $numero  = $numero * 1; //con esta operación convierto el string en número.
+    }
+    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
+        echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
+        $numero = trim(fgets(STDIN));
+        if (is_numeric($numero)) {
+            $numero  = $numero * 1;
+        }
+    }
+    return $numero;
+}
   
 
 /**
@@ -90,26 +113,29 @@ function cargarPartidas(){
  * @param INT $numPartida
  */
 
- function llamarDatosPartidas ($numPartida){
+ function llamarDatosPartidas (){
   /*STRING $partidasCargadas  */
       $partidasCargadas = cargarPartidas();
 
-      $i = 0;
-      for ($i = 0 ; $i < count($partidasCargadas); $i++){
-        if($partidasCargadas[$i]["partida"] == $numPartida){
+      echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
+
+      $partidaValida = solicitarNumeroEntre(0 , count($partidasCargadas)-1); 
+      
+     
+
+        
           echo "****************************************\n";
-          echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
-          echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
-          echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
-          echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
+          echo "Partida WORDIX " . $partidasCargadas[$partidaValida-1]["partida"] . ": Palabra: " . $partidasCargadas[$partidaValida-1]["palabra"] . "\n";
+          echo "Jugador: " . $partidasCargadas[$partidaValida-1]["jugador"] . "\n";
+          echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
+          echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
           echo "****************************************\n";
           
-        }else{
-          $i = $i +1;
-        }
-      }
+        
+      
 
     }
+    llamarDatosPartidas();
 
         // foreach ($partidasCargadas as $partidas){
         //   echo "************************************\n";
@@ -126,6 +152,6 @@ function cargarPartidas(){
     
 
 
-echo "ingrese numero de partida que desea ver: ";
-$partidaNum= trim(fgets(STDIN));
-$datos = llamarDatosPartidas($partidaNum);
+// echo "ingrese numero de partida que desea ver: ";
+// $partidaNum= trim(fgets(STDIN));
+// $datos = llamarDatosPartidas($partidaNum);
