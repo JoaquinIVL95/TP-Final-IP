@@ -167,7 +167,7 @@ function seleccionarOpcion(){
   $numeroSolicitado = solicitarNumeroEntre(1, 8);
   return $numeroSolicitado;
 }
-SeleccionarOpcion();
+
 
 
 /**************************************/
