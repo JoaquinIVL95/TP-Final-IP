@@ -90,28 +90,26 @@ function cargarPartidas(){
  * @param INT $numPartida
  */
 
-    function llamarDatosPartidas ($numPartida){
-    /*STRING $partidasCargadas  */
-        $partidasCargadas = cargarPartidas();
+ function llamarDatosPartidas ($numPartida){
+  /*STRING $partidasCargadas  */
+      $partidasCargadas = cargarPartidas();
 
-        $i = 0;
-
-        while($i< $numPartida){
-          if($partidasCargadas[$i]["partida"] == $numPartida){
-            echo "****************************************\n";
-            echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
-            echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
-            echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
-            echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
-            echo "****************************************\n";
-
-            break;
-          }else{
-            $i = $i +1;
-          }
+      $i = 0;
+      for ($i = 0 ; $i < count($partidasCargadas); $i++){
+        if($partidasCargadas[$i]["partida"] == $numPartida){
+          echo "****************************************\n";
+          echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
+          echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
+          echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
+          echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
+          echo "****************************************\n";
+          
+        }else{
+          $i = $i +1;
         }
-
       }
+
+    }
 
         // foreach ($partidasCargadas as $partidas){
         //   echo "************************************\n";
