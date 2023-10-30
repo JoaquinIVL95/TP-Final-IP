@@ -121,7 +121,52 @@ function cargarPartidas(){
   return $coleccionPartidas;
 }
 
+/**
+* Funcion para llamar datos de partidas jugadas
+* @param INT $numPartida
+*/
+function llamarDatosPartidas ($numPartida){
+  /*STRING $partidasCargadas  */
+  $partidasCargadas = cargarPartidas();
 
+  $i = 0;
+
+  while($i< $numPartida){
+    if($partidasCargadas[$i]["partida"] == $numPartida){
+      echo "****************************************\n";
+      echo "Partida WORDIX " . $partidasCargadas[$i]["partida"] . ": Palabra: " . $partidasCargadas[$i]["palabra"] . "\n";
+      echo "Jugador: " . $partidasCargadas[$i]["jugador"] . "\n";
+      echo "Puntaje: " . $partidasCargadas[$i]["puntaje"] . " puntos \n";
+      echo "Intentos: " . $partidasCargadas[$i]["intento"] . "\n";
+      echo "****************************************\n";
+
+      break;
+    }else{
+      $i = $i +1;
+    }
+  }
+}
+
+/**
+ * Muestra el menú de opciones y retorna el número de la opcion
+ * @return int
+ */
+function seleccionarOpcion(){
+  echo "****************************************\n";
+  echo "Menú de opciones:\n";
+  echo "1) Jugar con una palabra elegida\n";
+  echo "2) Jugar con una palabra aleatoria\n";
+  echo "3) Mostrar una partida\n";
+  echo "4) Mostrar la primer partida ganadora\n";
+  echo "5) Mostrar resumen de Jugador\n";
+  echo "6) Mostrar listado de partidas\n";
+  echo "7) Agregar una palabra\n";
+  echo "8) Salir\n\n";
+  echo "Ingrese una opción entre 1 y 8\n";
+  echo "=> ";
+  $numeroSolicitado = solicitarNumeroEntre(1, 8);
+  return $numeroSolicitado;
+}
 
 
 
