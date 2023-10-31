@@ -133,26 +133,23 @@ function llamarDatosPartidas (){
   echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
 
   $partidaValida = solicitarNumeroEntre(0 , count($partidasCargadas)-1); 
-  
-  
-
-    
-      echo "****************************************\n";
-      echo "Partida WORDIX " . $partidasCargadas[$partidaValida-1]["partida"] . ": Palabra: " . $partidasCargadas[$partidaValida-1]["palabra"] . "\n";
-      echo "Jugador: " . $partidasCargadas[$partidaValida-1]["jugador"] . "\n";
-      echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
-      echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
-      echo "****************************************\n";
+      
+  echo "****************************************\n";
+  echo "Partida WORDIX " . $partidasCargadas[$partidaValida-1]["partida"] . ": Palabra: " . $partidasCargadas[$partidaValida-1]["palabra"] . "\n";
+  echo "Jugador: " . $partidasCargadas[$partidaValida-1]["jugador"] . "\n";
+  echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
+  echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
+  echo "****************************************\n";
 
 }
 
 /**
  * Funcion 7 para agregar nuevas palabras al juego
  * @param STRING $palabraNueva
- * @return
+ * @return array
  */
 
- function agregarPalabra ($palabraNueva){
+function agregarPalabra ($palabraNueva){
 
   array_push ($coleccionPalabras, $palabraNueva);
 
@@ -207,39 +204,57 @@ function seleccionarOpcion(){
 /**************************************/
 
 //Declaración de variables:
-
+// boolean $salir
+// int $opcion
 
 //Inicialización de variables:
-
+$salir = true;
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
-//print_r($partida);
-//imprimirResultado($partida);
+//Precargar estructuras
+$partidas = cargarPartidas();
+$palabras = cargarColeccionPalabras();
 
+print_r($palabras);
+//Inicia el juego
+while($salir){
+  $opcion = seleccionarOpcion();
+  switch ($opcion) {
+    case 1: 
+      $partida = jugarWordix("MELON", strtolower("MaJo"));
+      break;
+    case 2: 
+      echo "segunda opcion\n";
+      break;
+    case 3: 
+      echo "tercera opcion\n";
 
+      break;
+    case 4: 
+      echo "cuarta opcion\n";
 
-/*
-do {
-    $opcion = ...;
+      break;
+    case 5: 
+      echo "quinta opcion\n";
 
+      break;
+    case 6: 
+      echo "sexta opcion\n";
+
+      break;
+    case 7: 
+      echo "septima opcion\n";
+
+      break;
+    case 8: 
+      $salir = false;
+      break;
     
-    switch ($opcion) {
-        case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+    default:
+      echo "a ocurrido un error";
+      break;
+  }
+}
 
-            break;
-        case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
-            break;
-        case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
-            break;
-        
-            //...
-    }
-} while ($opcion != X);
-*/
+echo "\n\n\n¡Adios!\n\n\n";
