@@ -163,14 +163,19 @@ $coleccionPalabras = [
   "AVION", "ABETO", "BICHO", "CABRA", "CEJAS"
 ];
 
-function agregarPalabra ($palabraNueva){
+/**
+ * Funcion para agregar nuevas palabras al juego
+ * @param STRING $palabraNueva
+ * @return
+ */
 
-  
+function agregarPalabra ($palabraNueva){
 
   array_push ($coleccionPalabras, $palabraNueva);
 
   return $coleccionPalabras;
 }
+
 $coleccionPalabras= agregarPalabra("ZAPAT");
 
 echo $coleccionPalabras[count($coleccionPalabras)-1];
