@@ -122,7 +122,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * Muestra en pantalla un mensaje para empezar a jugar
+ * @param string $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -135,7 +136,8 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ * retorna true si la palabra ingresada no contiene números
+ * @return boolean
  */
 function esPalabra($cadena)
 {
@@ -151,7 +153,8 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ * Le pide al usuario que ingrese una palabra de 5 letras
+ * @return string
  */
 function leerPalabra5Letras()
 {
