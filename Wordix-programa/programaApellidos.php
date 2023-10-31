@@ -122,7 +122,7 @@ function cargarPartidas(){
 }
 
 /**
- * Funcion para llamar datos de partidas jugadas
+ * Funcion 6 para llamar datos de partidas jugadas
  * @param INT $numPartida
  */
 
@@ -144,6 +144,39 @@ function llamarDatosPartidas (){
       echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
       echo "****************************************\n";
 
+}
+
+/**
+ * Funcion 7 para agregar nuevas palabras al juego
+ * @param STRING $palabraNueva
+ * @return
+ */
+
+ function agregarPalabra ($palabraNueva){
+
+  array_push ($coleccionPalabras, $palabraNueva);
+
+  return $coleccionPalabras;
+}
+
+/**
+ * Funcion 8 para determinar que partida fue la primera partida ganada de un jugador
+ * @param STRING $nombreJugador
+ * @return INT
+ */
+function primeraPartidaGanada($nombreJugador){
+  /*Variables internas */
+  $llamarPartidas = cargarPartidas();
+
+  foreach ($llamarPartidas as $indice => $jugadorEncontrado){
+    if ($jugadorEncontrado["jugador"] == $nombreJugador && $jugadorEncontrado["puntaje"] != 0){
+      $jugadorEncontrado = $indice;
+      break;
+    }else{
+      $jugadorEncontrado = -1;
+    }
+  }
+  return $jugadorEncontrado;
 }
 
 /**

@@ -176,8 +176,37 @@ function agregarPalabra ($palabraNueva){
   return $coleccionPalabras;
 }
 
-$coleccionPalabras= agregarPalabra("ZAPAT");
+// $coleccionPalabras= agregarPalabra("ZAPAT");
 
-echo $coleccionPalabras[count($coleccionPalabras)-1];
+// echo $coleccionPalabras[count($coleccionPalabras)-1];
 
-echo count($coleccionPalabras);
+// echo count($coleccionPalabras);
+
+
+
+
+
+
+/**
+ * Funcion para determinar que partida fue la primera partida ganada de un jugador
+ * @param STRING $nombreJugador
+ * @return INT
+ */
+function primeraPartidaGanada($nombreJugador){
+    /*Variables internas */
+    $llamarPartidas = cargarPartidas();
+
+    foreach ($llamarPartidas as $indice => $jugadorEncontrado){
+      if ($jugadorEncontrado["jugador"] == $nombreJugador && $jugadorEncontrado["puntaje"] != 0){
+        $jugadorEncontrado = $indice;
+        break;
+      }else{
+        $jugadorEncontrado = -1;
+      }
+    }
+    return $jugadorEncontrado;
+}
+
+
+$partidaGanada = primeraPartidaGanada("fede");
+echo $partidaGanada;
