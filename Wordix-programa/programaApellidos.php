@@ -146,14 +146,17 @@ function llamarDatosPartidas (){
 /**
  * Funcion 7 para agregar nuevas palabras al juego
  * @param STRING $palabraNueva
- * @return array
+ * @return
  */
 
-function agregarPalabra ($palabraNueva){
+ function agregarPalabra ($palabraNueva){
+  /* STRING $palabrasGuardadas, $palabraNueva */
 
-  array_push ($coleccionPalabras, $palabraNueva);
+  $palabrasGuardadas = cargarColeccionPalabras();
 
-  return $coleccionPalabras;
+  array_push ($palabrasGuardadas, $palabraNueva);
+
+  return $palabrasGuardadas;
 }
 
 /**
