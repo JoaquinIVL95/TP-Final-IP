@@ -45,77 +45,77 @@ function cargarPartidas(){
       "palabra" => "QUESO",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => "No adivinó la palabra"
+      "intento" => 0
     ],
     [
       "partida" => 2,
       "palabra" => "MUJER",
       "jugador" => "joaquin",
-      "puntaje" => 16,
-      "intento" => "Adivinó la palabra en 2 intentos"
+      "puntaje" => 14,
+      "intento" => 2
     ],
     [
       "partida" => 3,
       "palabra" => "FUEGO",
       "jugador" => "fede",
-      "puntaje" => 20,
-      "intento" => "Adivinó la palabra en 1 intentos"
+      "puntaje" => 13,
+      "intento" => 1
     ],
     [
       "partida" => 4,
       "palabra" => "CASAS",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => "No adivinó la palabra"
+      "intento" => 0
     ],
     [
       "partida" => 5,
       "palabra" => "QUESO",
       "jugador" => "moni",
-      "puntaje" => 6,
-      "intento" => "Adivinó la palabra en 6 intentos"
+      "puntaje" => 10,
+      "intento" => 6
     ],
     [
       "partida" => 6,
       "palabra" => "PIANO",
       "jugador" => "moni",
-      "puntaje" => 10,
-      "intento" => "Adivinó la palabra en 4 intentos"
+      "puntaje" => 12,
+      "intento" => 4
     ],
     [
       "partida" => 7,
       "palabra" => "MELON",
       "jugador" => "joaquin",
       "puntaje" => 0,
-      "intento" => "No adivinó la palabra"
+      "intento" => 0
     ],
     [
       "partida" => 8,
       "palabra" => "CABRA",
       "jugador" => "joaquin",
-      "puntaje" => 10,
-      "intento" => "Adivinó la palabra en 4 intentos"
+      "puntaje" => 12,
+      "intento" => 4
     ],
     [
       "partida" => 9,
       "palabra" => "CEJAS",
       "jugador" => "moni",
-      "puntaje" => 12,
-      "intento" => "Adivinó la palabra en 3 intentos"
+      "puntaje" => 13,
+      "intento" => 3
     ],
     [
       "partida" => 10,
       "palabra" => "ABETO",
       "jugador" => "joaquin",
-      "puntaje" => 15,
-      "intento" => "Adivinó la palabra en 2 intentos"
+      "puntaje" => 13,
+      "intento" => 2
     ],
     [
       "partida" => 1,
       "palabra" => "VERDE",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => "No adivinó la palabra"
+      "intento" => 0
     ],
   ];
   return $coleccionPartidas;
