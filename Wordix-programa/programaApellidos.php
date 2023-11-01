@@ -256,5 +256,6 @@ while($salir){
       break;
   }
 }
-
+// echo "\n\n\n";
+// print_r($partida);
 echo "\n\n\n¡Adios!\n\n\n";
