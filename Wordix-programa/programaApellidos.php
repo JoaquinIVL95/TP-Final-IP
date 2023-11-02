@@ -121,6 +121,7 @@ function cargarPartidas(){
   return $coleccionPartidas;
 }
 
+
 /**
  * Funcion 6 para llamar datos de partidas jugadas
  * @param INT $numPartida
@@ -200,6 +201,80 @@ function seleccionarOpcion(){
   return $numeroSolicitado;
 }
 
+/**
+ * Muestra el resumen de un jugador
+ * @param $nomJugador
+ * @param $partGuardadas
+ */
+function mostrarResuJug($nomJugador, $partGuardadas) {
+    /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
+    * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
+    * float $porceVict
+    */
+
+    $resumenJug = [];
+    $partidas = 0 ;
+    $puntajeTotal = 0;
+    $victorias = 0;
+    $inten1 = 0;
+    $inten2 = 0;
+    $inten3 = 0;
+    $inten4 = 0;
+    $inten5 = 0;
+    $inten6 = 0;
+
+    for ($i = 0; $i < count($partGuardadas); $i++) {
+        if ($partGuardadas[$i]["jugador"] == $nomJugador) {
+            $partidas += 1;
+            $puntObtenido= $partGuardadas[$i]["puntaje"];
+            if ($puntObtenido != 0) {
+                $victorias += 1;
+                $puntajeTotal += $puntObtenido;
+                $intento = $partGuardadas[$i]["intento"];
+
+                switch ($intento) {
+                    case 1:
+                        $inten1 += 1;
+                        break;
+                    case 2:
+                        $inten2 += 1;
+                        break;
+                    case 3:
+                        $inten3 += 1;
+                        break;
+                    case 4:
+                        $inten4 += 1;
+                        break;
+                    case 5:
+                        $inten5 += 1;
+                        break;
+                    case 6:
+                        $inten6 =+ 1;
+                        break;
+                }
+            }
+        }
+
+    }
+    if ($partidas > 0) {
+        $porcVict = $victorias / $partidas;
+        $resumenJug ["Jugador"] = $nomJugador;
+        $resumenJug ["Partidas"] = $partidas;
+        $resumenJug ["Puntaje Total"] = $puntajeTotal;
+        $resumenJug ["Victorias"] = $victorias;
+        $resumenJug ["Porcentaje victorias"] = $porcVict;
+        $resumenJug ["Adivinadas"]["Intento 1"] = $inten1;
+        $resumenJug ["Adivinadas"]["Intento 2"] = $inten2;
+        $resumenJug ["Adivinadas"]["Intento 3"] = $inten3;
+        $resumenJug ["Adivinadas"]["Intento 4"] = $inten4;
+        $resumenJug ["Adivinadas"]["Intento 5"] = $inten5;
+        $resumenJug ["Adivinadas"]["Intento 6"] = $inten6;
+        print_r($resumenJug);
+    }
+    else {
+        echo "No hay registro de este jugador";
+    }
+}
 
 
 /**************************************/
@@ -255,7 +330,7 @@ while($salir){
       break;
     
     default:
-      echo "a ocurrido un error";
+      echo "Ha ocurrido un error";
       break;
   }
 }
