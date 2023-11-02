@@ -7,10 +7,10 @@ include_once("wordix.php");
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
 
-/* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
+/* Apellido, Nombre. Legajo. Carrera. Mail. Usuario Github */
 /* Vargas. Joaquin. Fai-4873. TUDW. joaquinivl95@gmail.com. JoaquinIVL95
 Uñates, Federico. FAI - 4988. TUDW. fedee.unates.2001@gmail.com. FedeU18
-Zuluaga, Peláez, Mónica. FAI- 4356. TUDW.  MoniZuluagaP
+Zuluaga, Peláez, Mónica. FAI- 4356. TUDW.  monicazul.desarrollo@gmail.com. MoniZuluagaP
 */
 
 
@@ -206,7 +206,7 @@ function seleccionarOpcion(){
  * @param $nomJugador
  * @param $partGuardadas
  */
-function mostrarResuJug($nomJugador, $partGuardadas) {
+function mostrarResultJug($nomJugador, $partGuardadas) {
     /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
     * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
     * float $porceVict
@@ -275,6 +275,21 @@ function mostrarResuJug($nomJugador, $partGuardadas) {
         echo "No hay registro de este jugador";
     }
 }
+
+/** Solicitar el nombre de jugador y devolverlo solo cuando este sea válido
+ * @return string
+ */
+function solicitarNombre () {
+
+    do {
+        echo "Ingrese el nombre del jugador. Debe comenzar  con una letra: \n";
+        $nombreVal = trim(fgets(STDIN));
+        $longNom = strlen($nombreVal);
+
+    } while (!$longNom > 0 || !esPalabra($nombreVal[0]));
+    return strtolower($nombreVal);
+}
+
 
 
 /**************************************/

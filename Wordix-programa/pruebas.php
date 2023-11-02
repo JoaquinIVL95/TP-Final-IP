@@ -287,4 +287,17 @@ function mostrarResuJug($nomJugador, $partGuardadas) {
         echo "No hay registro de este jugador";
     }
 }
-mostrarResuJug("moni", cargarPartidas());
+//mostrarResultJug("moni", cargarPartidas());
+
+function solicitarNombre () {
+
+    do {
+        echo "Ingrese el nombre del jugador. Debe comenzar  con una letra: \n";
+        $nombreVal = trim(fgets(STDIN));
+        $longNom = strlen($nombreVal);
+
+    } while (!$longNom > 0 || !esPalabra($nombreVal[0]));
+    return strtolower($nombreVal);
+}
+
+echo $nombre = solicitarNombre();
