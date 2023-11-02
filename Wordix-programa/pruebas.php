@@ -218,7 +218,7 @@ function primeraPartidaGanada($nombreJugador){
  * @param $partGuardadas
  */
 
-function mostrarResuJug($nomJugador, $partGuardadas) {
+function mostrarResultJug($nomJugador, $partGuardadas) {
     /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
     * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
     * float $porceVict
@@ -239,12 +239,12 @@ function mostrarResuJug($nomJugador, $partGuardadas) {
         if ($partGuardadas[$i]["jugador"] == $nomJugador) {
             $partidas += 1;
             $puntObtenido= $partGuardadas[$i]["puntaje"];
-            if ($puntObtenido != 0) {
+            if ($puntObtenido > 0) {
                 $victorias += 1;
                 $puntajeTotal += $puntObtenido;
-                $intento = $partGuardadas[$i]["intento"];
+                $ganoIntento = $partGuardadas[$i]["intento"];
 
-                switch ($intento) {
+                switch ($ganoIntento) {
                     case 1:
                         $inten1 += 1;
                         break;
@@ -269,19 +269,25 @@ function mostrarResuJug($nomJugador, $partGuardadas) {
 
     }
     if ($partidas > 0) {
-        $porcVict = $victorias / $partidas * 100;
+        $porcVict = $victorias / $partidas;
         $resumenJug ["Jugador"] = $nomJugador;
         $resumenJug ["Partidas"] = $partidas;
         $resumenJug ["Puntaje Total"] = $puntajeTotal;
         $resumenJug ["Victorias"] = $victorias;
         $resumenJug ["Porcentaje victorias"] = $porcVict;
-        $resumenJug ["Adivinadas"]["Intento 1"] = $inten1;
-        $resumenJug ["Adivinadas"]["Intento 2"] = $inten2;
-        $resumenJug ["Adivinadas"]["Intento 3"] = $inten3;
-        $resumenJug ["Adivinadas"]["Intento 4"] = $inten4;
-        $resumenJug ["Adivinadas"]["Intento 5"] = $inten5;
-        $resumenJug ["Adivinadas"]["Intento 6"] = $inten6;
-        print_r($resumenJug) ;
+        $resumenJug ["Adivinadas"] = "";
+        $resumenJug ["Intento 1"] = $inten1;
+        $resumenJug ["Intento 2"] = $inten2;
+        $resumenJug ["Intento 3"] = $inten3;
+        $resumenJug ["Intento 4"] = $inten4;
+        $resumenJug ["Intento 5"] = $inten5;
+        $resumenJug ["Intento 6"] = $inten6;
+        //print_r($resumenJug);
+        echo "********************************************************\n" ;
+        foreach ($resumenJug as $clave => $valor) {
+            echo $clave.": ".$valor."\n";
+        }
+        echo "********************************************************\n" ;
     }
     else {
         echo "No hay registro de este jugador";
@@ -300,4 +306,12 @@ function solicitarNombre () {
     return strtolower($nombreVal);
 }
 
-echo $nombre = solicitarNombre();
+//echo $nombre = solicitarNombre();
+
+function ordenPorNombre($partGuardadas) {
+    /* array $coleOrdenada, int $cantPartidas */
+
+
+}
+
+ordenarColeccion(cargarPartidas());

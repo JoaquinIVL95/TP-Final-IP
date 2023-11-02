@@ -1,8 +1,6 @@
 <?php
 include_once("wordix.php");
 
-
-
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
@@ -12,9 +10,6 @@ include_once("wordix.php");
 Uñates, Federico. FAI - 4988. TUDW. fedee.unates.2001@gmail.com. FedeU18
 Zuluaga, Peláez, Mónica. FAI- 4356. TUDW.  monicazul.desarrollo@gmail.com. MoniZuluagaP
 */
-
-
-/* ****COMPLETAR***** */
 
 
 /**************************************/
@@ -36,7 +31,6 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
-/* ****COMPLETAR***** */
 
 function cargarPartidas(){
   $coleccionPartidas = [
@@ -126,7 +120,6 @@ function cargarPartidas(){
  * Funcion 6 para llamar datos de partidas jugadas
  * @param INT $numPartida
  */
-
 function llamarDatosPartidas (){
   /*STRING $partidasCargadas  */
   $partidasCargadas = cargarPartidas();
@@ -141,7 +134,6 @@ function llamarDatosPartidas (){
   echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
   echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
   echo "****************************************\n";
-
 }
 
 /**
@@ -149,7 +141,6 @@ function llamarDatosPartidas (){
  * @param STRING $palabraNueva
  * @return
  */
-
  function agregarPalabra ($palabraNueva){
   /* STRING $palabrasGuardadas, $palabraNueva */
 
@@ -192,7 +183,7 @@ function seleccionarOpcion(){
   echo "3) Mostrar una partida\n";
   echo "4) Mostrar la primer partida ganadora\n";
   echo "5) Mostrar resumen de Jugador\n";
-  echo "6) Mostrar listado de partidas\n";
+  echo "6) Mostrar listado de partidas ordenadas por nombre de jugador y por palabra\n";
   echo "7) Agregar una palabra\n";
   echo "8) Salir\n\n";
   echo "Ingrese una opción entre 1 y 8\n";
@@ -209,8 +200,7 @@ function seleccionarOpcion(){
 function mostrarResultJug($nomJugador, $partGuardadas) {
     /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
     * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
-    * float $porceVict
-    */
+    * float $porceVict */
 
     $resumenJug = [];
     $partidas = 0 ;
@@ -227,12 +217,12 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
         if ($partGuardadas[$i]["jugador"] == $nomJugador) {
             $partidas += 1;
             $puntObtenido= $partGuardadas[$i]["puntaje"];
-            if ($puntObtenido != 0) {
+            if ($puntObtenido > 0) {
                 $victorias += 1;
                 $puntajeTotal += $puntObtenido;
-                $intento = $partGuardadas[$i]["intento"];
+                $ganoIntento = $partGuardadas[$i]["intento"];
 
-                switch ($intento) {
+                switch ($ganoIntento) {
                     case 1:
                         $inten1 += 1;
                         break;
@@ -254,10 +244,9 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
                 }
             }
         }
-
     }
     if ($partidas > 0) {
-        $porcVict = $victorias / $partidas;
+        $porcVict = $victorias / $partidas * 100;
         $resumenJug ["Jugador"] = $nomJugador;
         $resumenJug ["Partidas"] = $partidas;
         $resumenJug ["Puntaje Total"] = $puntajeTotal;
@@ -269,17 +258,22 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
         $resumenJug ["Adivinadas"]["Intento 4"] = $inten4;
         $resumenJug ["Adivinadas"]["Intento 5"] = $inten5;
         $resumenJug ["Adivinadas"]["Intento 6"] = $inten6;
-        print_r($resumenJug);
-    }
-    else {
+
+        echo "***********************************************\n";
+        foreach ($resumenJug as $clave => $valor) {
+            echo $clave.": ".$valor."\n";
+        }
+        echo "***********************************************\n";
+    } else {
         echo "No hay registro de este jugador";
-    }
+      }
 }
 
-/** Solicitar el nombre de jugador y devolverlo solo cuando este sea válido
+/** Solicitar nombre de jugador y devolverlo solo cuando este sea válido
  * @return string
  */
-function solicitarNombre () {
+function solicitarNombre() {
+    /* string $nombreVal, int $longNom */
 
     do {
         echo "Ingrese el nombre del jugador. Debe comenzar  con una letra: \n";
@@ -290,6 +284,27 @@ function solicitarNombre () {
     return strtolower($nombreVal);
 }
 
+/**
+ * Comparar los valores de la clave "jugador" de los arreglos a y b y después comparar los valores de la clave "palabra".
+ * Retorna un valor según el resultado de la comparación
+ * @param $a
+ * @param $b
+ * @return int
+ */
+function comparador($a, $b) {
+    if (strcmp($a["jugador"], $b["jugador"]) == 0) {
+        return strcmp($a["palabra"], $b["palabra"]);
+    }
+    return strcmp($a["jugador"], $b["jugador"]);
+}
+
+/** Ordenar la coleccion de partidas de acuerdo a la funcion comparador que compara los valores de las claves "jugador" y "palabra"
+ * @param $partGuardadas
+ */
+function ordenPorJugador($partGuardadas) {
+    uasort($partGuardadas,"comparador");
+    print_r($partGuardadas);
+}
 
 
 /**************************************/
