@@ -345,13 +345,22 @@ function obtenerPuntajeWordix($intento, $palabra)  /* ****COMPLETAR***** paráme
   $puntaje = 0;
   $vocales = ["a","e","i","o","u"];
   $consonantesHastaM = ["b","c","d","f","g","h","j","k","l","m"];
+  $consonantesDespuesM = ["n","p","q","r","s","t","v","w","x","y","z"];
   for($i=0; $i < strlen($palabra); $i++){
-    if(in_array($palabra[$i],$vocales)){
-      $puntaje = $puntaje + 1;
-    } else if(in_array($palabra[$i],$consonantesHastaM)){
-      $puntaje = $puntaje + 2;
-    } else {
-      $puntaje = $puntaje + 3;
+    for($j = 0; $j < count($vocales); $j++){
+      if($palabra[$i] == $vocales[$j]){
+        $puntaje = $puntaje + 1;
+      }
+    }
+    for($j = 0; $j < count($consonantesHastaM); $j++){
+      if($palabra[$i] == $consonantesHastaM[$j]){
+        $puntaje = $puntaje + 2;
+      }
+    }
+    for($j = 0; $j < count($consonantesDespuesM); $j++){
+      if($palabra[$i] == $consonantesDespuesM[$j]){
+        $puntaje = $puntaje + 3;
+      }
     }
   }
   if($intento == 1){
