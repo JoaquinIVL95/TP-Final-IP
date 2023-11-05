@@ -176,7 +176,7 @@ function primeraPartidaGanada($nombreJugador){
  * @return int
  */
 function seleccionarOpcion(){
-  echo "****************************************\n";
+  echo "\n\n\n****************************************\n";
   echo "Menú de opciones:\n";
   echo "1) Jugar con una palabra elegida\n";
   echo "2) Jugar con una palabra aleatoria\n";
@@ -185,7 +185,7 @@ function seleccionarOpcion(){
   echo "5) Mostrar resumen de Jugador\n";
   echo "6) Mostrar listado de partidas ordenadas por nombre de jugador y por palabra\n";
   echo "7) Agregar una palabra\n";
-  echo "8) Salir\n\n";
+  echo "8) Salir\n\n\n";
   echo "Ingrese una opción entre 1 y 8\n";
   echo "=> ";
   $numeroSolicitado = solicitarNumeroEntre(1, 8);
@@ -318,23 +318,35 @@ function ordenPorJugador($partGuardadas) {
 
 //Inicialización de variables:
 $salir = true;
+$partidaValida = true;
 
 //Proceso:
 
 //Precargar estructuras
 $partidas = cargarPartidas();
-$palabras = cargarColeccionPalabras();
 
-print_r($palabras);
+$palabras = cargarColeccionPalabras();
+// print_r($partidas);
+
+
 //Inicia el juego
 while($salir){
   $opcion = seleccionarOpcion();
   switch ($opcion) {
     case 1: 
-      $partida = jugarWordix("MELON", strtolower("MaJo"));
+      // $partida = jugarWordix("MELON", strtolower("MaJo"));
+
+      $jugador = solicitarNombre();
+      echo "Elija un número entre 1 y " . count($palabras) . "\n";
+      $numeroElegido = solicitarNumeroEntre(1, count($palabras));
+      $palabraElegida = $palabras[$numeroElegido -1];
+      $partida = jugarWordix($palabraElegida,$jugador);
       break;
     case 2: 
-      echo "segunda opcion\n";
+      $jugador = solicitarNombre();
+      $numeroAleatorio = rand(0,19);
+      $palabraAleatoria = $palabras[$numeroAleatorio];
+      $partida = jugarWordix($palabraAleatoria,$jugador);
       break;
     case 3: 
       echo "tercera opcion\n";
