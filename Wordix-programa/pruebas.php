@@ -7,77 +7,77 @@ function cargarPartidas(){
         "palabra" => "QUESO",
         "jugador" => "fede",
         "puntaje" => 0,
-        "intento" => "No adivinó la palabra"
+        "intento" => 0
       ],
       [
         "partida" => 2,
         "palabra" => "MUJER",
         "jugador" => "joaquin",
         "puntaje" => 16,
-        "intento" => "Adivinó la palabra en 2 intentos"
+        "intento" => 2
       ],
       [
         "partida" => 3,
         "palabra" => "FUEGO",
         "jugador" => "fede",
         "puntaje" => 20,
-        "intento" => "Adivinó la palabra en 1 intentos"
+        "intento" => 1
       ],
       [
         "partida" => 4,
         "palabra" => "CASAS",
         "jugador" => "fede",
         "puntaje" => 0,
-        "intento" => "No adivinó la palabra"
+        "intento" => 0
       ],
       [
         "partida" => 5,
         "palabra" => "QUESO",
         "jugador" => "moni",
         "puntaje" => 6,
-        "intento" => "Adivinó la palabra en 6 intentos"
+        "intento" => 6
       ],
       [
         "partida" => 6,
         "palabra" => "PIANO",
         "jugador" => "moni",
         "puntaje" => 10,
-        "intento" => "Adivinó la palabra en 4 intentos"
+        "intento" => 4
       ],
       [
         "partida" => 7,
         "palabra" => "MELON",
         "jugador" => "joaquin",
         "puntaje" => 0,
-        "intento" => "No adivinó la palabra"
+        "intento" => 0
       ],
       [
         "partida" => 8,
         "palabra" => "CABRA",
         "jugador" => "joaquin",
         "puntaje" => 10,
-        "intento" => "Adivinó la palabra en 4 intentos"
+        "intento" => 4
       ],
       [
         "partida" => 9,
         "palabra" => "CEJAS",
         "jugador" => "moni",
         "puntaje" => 12,
-        "intento" => "Adivinó la palabra en 3 intentos"
+        "intento" => 3
       ],
       [
         "partida" => 10,
         "palabra" => "ABETO",
         "jugador" => "joaquin",
         "puntaje" => 15,
-        "intento" => "Adivinó la palabra en 2 intentos"
+        "intento" => 2
       ],
       [
         "partida" => 11,
         "palabra" => "VERDE",
         "jugador" => "fede",
         "puntaje" => 0,
-        "intento" => "No adivinó la palabra"
+        "intento" => 0
       ],
     ];
     return $coleccionPartidas;
@@ -208,5 +208,110 @@ function primeraPartidaGanada($nombreJugador){
 }
 
 
-$partidaGanada = primeraPartidaGanada("fede");
-echo $partidaGanada;
+//$partidaGanada = primeraPartidaGanada("fede");
+//echo $partidaGanada;
+
+
+/**
+ * Muestra el resumen de un jugador
+ * @param $nomJugador
+ * @param $partGuardadas
+ */
+
+function mostrarResultJug($nomJugador, $partGuardadas) {
+    /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
+    * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
+    * float $porceVict
+    */
+
+    $resumenJug = [];
+    $partidas = 0 ;
+    $puntajeTotal = 0;
+    $victorias = 0;
+    $inten1 = 0;
+    $inten2 = 0;
+    $inten3 = 0;
+    $inten4 = 0;
+    $inten5 = 0;
+    $inten6 = 0;
+
+    for ($i = 0; $i < count($partGuardadas); $i++) {
+        if ($partGuardadas[$i]["jugador"] == $nomJugador) {
+            $partidas += 1;
+            $puntObtenido= $partGuardadas[$i]["puntaje"];
+            if ($puntObtenido > 0) {
+                $victorias += 1;
+                $puntajeTotal += $puntObtenido;
+                $ganoIntento = $partGuardadas[$i]["intento"];
+
+                switch ($ganoIntento) {
+                    case 1:
+                        $inten1 += 1;
+                        break;
+                    case 2:
+                        $inten2 += 1;
+                        break;
+                    case 3:
+                        $inten3 += 1;
+                        break;
+                    case 4:
+                        $inten4 += 1;
+                        break;
+                    case 5:
+                        $inten5 += 1;
+                        break;
+                    case 6:
+                        $inten6 =+ 1;
+                        break;
+                }
+            }
+        }
+
+    }
+    if ($partidas > 0) {
+        $porcVict = $victorias / $partidas;
+        $resumenJug ["Jugador"] = $nomJugador;
+        $resumenJug ["Partidas"] = $partidas;
+        $resumenJug ["Puntaje Total"] = $puntajeTotal;
+        $resumenJug ["Victorias"] = $victorias;
+        $resumenJug ["Porcentaje victorias"] = $porcVict;
+        $resumenJug ["Adivinadas"] = "";
+        $resumenJug ["Intento 1"] = $inten1;
+        $resumenJug ["Intento 2"] = $inten2;
+        $resumenJug ["Intento 3"] = $inten3;
+        $resumenJug ["Intento 4"] = $inten4;
+        $resumenJug ["Intento 5"] = $inten5;
+        $resumenJug ["Intento 6"] = $inten6;
+        //print_r($resumenJug);
+        echo "********************************************************\n" ;
+        foreach ($resumenJug as $clave => $valor) {
+            echo $clave.": ".$valor."\n";
+        }
+        echo "********************************************************\n" ;
+    }
+    else {
+        echo "No hay registro de este jugador";
+    }
+}
+//mostrarResultJug("moni", cargarPartidas());
+
+function solicitarNombre () {
+
+    do {
+        echo "Ingrese el nombre del jugador. Debe comenzar  con una letra: \n";
+        $nombreVal = trim(fgets(STDIN));
+        $longNom = strlen($nombreVal);
+
+    } while (!$longNom > 0 || !esPalabra($nombreVal[0]));
+    return strtolower($nombreVal);
+}
+
+//echo $nombre = solicitarNombre();
+
+function ordenPorNombre($partGuardadas) {
+    /* array $coleOrdenada, int $cantPartidas */
+
+
+}
+
+ordenarColeccion(cargarPartidas());
