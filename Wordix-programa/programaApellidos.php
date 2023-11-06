@@ -105,7 +105,7 @@ function cargarPartidas(){
       "intento" => 2
     ],
     [
-      "partida" => 1,
+      "partida" => 11,
       "palabra" => "VERDE",
       "jugador" => "fede",
       "puntaje" => 0,
@@ -313,20 +313,21 @@ function ordenPorJugador($partGuardadas) {
 
 //Declaración de variables:
 // boolean $salir
-// int $opcion
+// int $opcion, $numeroElegido, $numeroAleatorio
 // array $partidas, $palabras, $partida
+// string $jugador, $palabraElegida, $palabraAleatoria
 
 //Inicialización de variables:
 $salir = true;
 $partidaValida = true;
+//Precargar estructuras
+$partidas = cargarPartidas();
+$palabras = cargarColeccionPalabras();
+// print_r($partidas);
+
 
 //Proceso:
 
-//Precargar estructuras
-$partidas = cargarPartidas();
-
-$palabras = cargarColeccionPalabras();
-// print_r($partidas);
 
 
 //Inicia el juego
@@ -357,12 +358,12 @@ while($salir){
 
       break;
     case 5: 
-      echo "quinta opcion\n";
+      $jugador = SolicitarNombre();
+      mostrarResultJug($jugador, $partidas);
 
       break;
     case 6: 
-      echo "sexta opcion\n";
-
+      ordenPorJugador($partidas);
       break;
     case 7: 
       echo "septima opcion\n";
