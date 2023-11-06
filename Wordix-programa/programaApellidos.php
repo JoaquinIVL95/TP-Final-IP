@@ -326,10 +326,10 @@ function ordenPorJugador($partGuardadas) {
 /**************************************/
 
 //Declaración de variables:
-// boolean $salir
-// int $opcion, $numeroElegido, $numeroAleatorio, $i
-// array $partidas, $palabras, $partida
-// string $jugador, $palabraElegida, $palabraAleatoria
+// boolean $salir, $palabraValida
+// int $opcion, $numeroElegido, $numeroAleatorio, $i, $nroDePartida
+// array $partidas, $palabras, $partida, $palabrasJugadas
+// string $jugador, $palabraElegida, $palabraAleatoria, $palabraPorAgregar
 
 //Inicialización de variables:
 $salir = true;
@@ -349,12 +349,12 @@ echo primeraPartidaGanada("fede",$partidas);
 while($salir){
   $opcion = seleccionarOpcion();
   switch ($opcion) {
+    //PRIMER CASO
     case 1: 
-      // $partida = jugarWordix("MELON", strtolower("MaJo"));
       $palabraValida = true;
       $jugador = solicitarNombre();
       $palabrasJugadas = [];
-      foreach($partidas as $key => $partidaJugada) {
+      foreach($partidas as $partidaJugada) {
         if($partidaJugada["jugador"] == $jugador){
           array_push($palabrasJugadas,$partidaJugada["palabra"]);
         }
@@ -363,16 +363,21 @@ while($salir){
         echo "Elija un número entre 1 y " . count($palabras) . "\n";
         $numeroElegido = solicitarNumeroEntre(1, count($palabras));
         $palabraElegida = $palabras[$numeroElegido -1];
-
+        if(!in_array($palabraElegida,$palabrasJugadas)){
+          $palabraValida = false;
+        }
       }
 
       $partida = jugarWordix($palabraElegida,$jugador);
+
       break;
+
+    //SEGUNDO CASO
     case 2: 
       $jugador = solicitarNombre();
       $palabraValida = true;
       $palabrasJugadas = [];
-      foreach($partidas as $key => $partidaJugada) {
+      foreach($partidas as $partidaJugada) {
         if($partidaJugada["jugador"] == $jugador){
           array_push($palabrasJugadas,$partidaJugada["palabra"]);
         }
@@ -387,27 +392,50 @@ while($salir){
       }
 
       $partida = jugarWordix($palabraAleatoria,$jugador);
+
+
       break;
+
+    //TERCER CASO
     case 3: 
-      echo "tercera opcion\n";
-
+      echo "Ingrese un número entre 1 y " . count($partidas) . " de la partida que quiere ver \n";
+      $nroDePartida = solicitarNumeroEntre(1, count($partidas));
+      llamarDatosPartidas($nroDePartida-1,$partidas);
       break;
+
+    //CUARTO CASO
     case 4: 
-      echo "cuarta opcion\n";
-
+      $jugador = solicitarNombre();
+      $nroDePartida = primeraPartidaGanada($jugador,$partidas);
+      llamarDatosPartidas($nroDePartida, $partidas);
       break;
+
+    //QUINTO CASO
     case 5: 
       $jugador = SolicitarNombre();
       mostrarResultJug($jugador, $partidas);
 
       break;
+
+    //SEXTO CASO
     case 6: 
       ordenPorJugador($partidas);
       break;
-    case 7: 
-      echo "septima opcion\n";
 
+    //SEPTIMO CASO
+    case 7: 
+      $palabraValida = true;
+      $i = 0;
+      while($palabraValida){
+        $palabraPorAgregar = leerPalabra5Letras();
+        if(!in_array(strtoupper($palabraPorAgregar), $palabras)){
+          $palabraValida = false;
+        }
+      }
+      $palabras = agregarPalabra(strtoupper($palabraPorAgregar),$palabras);
       break;
+
+    //OCTAVO CASO
     case 8: 
       $salir = false;
       break;
