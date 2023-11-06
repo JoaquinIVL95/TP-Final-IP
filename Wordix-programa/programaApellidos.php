@@ -194,13 +194,13 @@ function seleccionarOpcion(){
 
 /**
  * Muestra el resumen de un jugador
- * @param $nomJugador
- * @param $partGuardadas
+ * @param string $nomJugadorValid
+ * @param array $partGuardadas
  */
-function mostrarResultJug($nomJugador, $partGuardadas) {
+function mostrarResultJug($nomJugadorValid, $partGuardadas) {
     /* array $resumenJug, int $partidas, $puntajeTotal, $victorias, $puntObtenido
-    * int $intento, $inten1, $inten2, $inten3, $inten4, $inten5, $inten6
-    * float $porceVict */
+    * int $inten1, $inten2, $inten3, $inten4, $inten5, $inten6, $ganoIntento
+    * float $porcVict */
 
     $resumenJug = [];
     $partidas = 0 ;
@@ -214,7 +214,7 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
     $inten6 = 0;
 
     for ($i = 0; $i < count($partGuardadas); $i++) {
-        if ($partGuardadas[$i]["jugador"] == $nomJugador) {
+        if ($partGuardadas[$i]["jugador"] == $nomJugadorValid) {
             $partidas += 1;
             $puntObtenido= $partGuardadas[$i]["puntaje"];
             if ($puntObtenido > 0) {
@@ -245,36 +245,42 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
             }
         }
     }
-    if ($partidas > 0) {
-        $porcVict = $victorias / $partidas * 100;
-        $resumenJug ["Jugador"] = $nomJugador;
-        $resumenJug ["Partidas"] = $partidas;
-        $resumenJug ["Puntaje Total"] = $puntajeTotal;
-        $resumenJug ["Victorias"] = $victorias;
-        $resumenJug ["Porcentaje victorias"] = $porcVict;
-        $resumenJug ["Adivinadas"] = "";
-        $resumenJug ["Intento 1"] = $inten1;
-        $resumenJug ["Intento 2"] = $inten2;
-        $resumenJug ["Intento 3"] = $inten3;
-        $resumenJug ["Intento 4"] = $inten4;
-        $resumenJug ["Intento 5"] = $inten5;
-        $resumenJug ["Intento 6"] = $inten6;
 
-        echo "***********************************************\n";
-        foreach ($resumenJug as $clave => $valor) {
+    $porcVict = $victorias / $partidas * 100;
+    $resumenJug ["Jugador"] = $nomJugadorValid;
+    $resumenJug ["Partidas"] = $partidas;
+    $resumenJug ["Puntaje Total"] = $puntajeTotal;
+    $resumenJug ["Victorias"] = $victorias;
+    $resumenJug ["Porcentaje victorias"] = $porcVict;
+    $resumenJug ["Intento 1"] = $inten1;
+    $resumenJug ["Intento 2"] = $inten2;
+    $resumenJug ["Intento 3"] = $inten3;
+    $resumenJug ["Intento 4"] = $inten4;
+    $resumenJug ["Intento 5"] = $inten5;
+    $resumenJug ["Intento 6"] = $inten6;
+
+    echo "***********************************************\n";
+    echo "RESUMEN DEL JUGADOR\n";
+    foreach ($resumenJug as $clave => $valor) {
+        if ($clave == "Intento 1"){
+            echo "Adivinadas: \n";
+        }
+
+        if ($clave == "Porcentaje victorias"){
+            echo $clave.": ".$valor."% \n";
+        } else {
             echo $clave.": ".$valor."\n";
         }
-        echo "***********************************************\n";
-    } else {
-        echo "No hay registro de este jugador";
-      }
+
+    }
+    echo "***********************************************\n";
 }
 
-/** Solicitar nombre de jugador y devolverlo solo cuando este sea válido
+/** Solicitar nombre de jugador y devolverlo solo cuando este sea válido (Debe empezar con una letra
+ * y no puede ser un string vacío
  * @return string
  */
-function solicitarNombre() {
-    /* string $nombreVal, int $longNom */
+function solicitarNombre () {
 
     do {
         echo "Ingrese el nombre del jugador. Debe comenzar  con una letra: \n";
@@ -285,11 +291,28 @@ function solicitarNombre() {
     return strtolower($nombreVal);
 }
 
+/** Buscar el nombre ingresado por el usuario en el arreglo de partidas y devolver
+ * si se encuentra o no en las partidas jugadas
+ * @return boolean
+ */
+function buscarNombJugador($nombrePedido, $partGuardadas) {
+    $i = 0;
+    $n = count($partGuardadas);
+    $encontrado = false;
+    while ($i < $n && !$encontrado) {
+        if ($partGuardadas[$i]["jugador"] == $nombrePedido){
+            $encontrado = true;
+        }
+        $i += 1;
+    }
+    return $encontrado;
+}
+
 /**
  * Comparar los valores de la clave "jugador" de los arreglos a y b y después comparar los valores de la clave "palabra".
  * Retorna un valor según el resultado de la comparación
- * @param $a
- * @param $b
+ * @param string $a
+ * @param string $b
  * @return int
  */
 function comparador($a, $b) {
@@ -300,7 +323,7 @@ function comparador($a, $b) {
 }
 
 /** Ordenar la coleccion de partidas de acuerdo a la funcion comparador que compara los valores de las claves "jugador" y "palabra"
- * @param $partGuardadas
+ * @param array $partGuardadas
  */
 function ordenPorJugador($partGuardadas) {
     uasort($partGuardadas,"comparador");
@@ -358,9 +381,10 @@ while($salir){
       echo "cuarta opcion\n";
 
       break;
-    case 5: 
+    case 5:
       $jugador = SolicitarNombre();
       mostrarResultJug($jugador, $partidas);
+
 
       break;
     case 6: 
