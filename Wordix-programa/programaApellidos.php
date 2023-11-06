@@ -163,17 +163,25 @@ function llamarDatosPartidas ($numPartida, $partidasCargadas){
  * @return INT
  */
 function primeraPartidaGanada($nombreJugador,$llamarPartidas){
-  /*Variables internas */
+  /*Variables internas INT $jugadorEncontrado*/
+  $n = count($llamarPartidas);
+  $i = 0;
+  $encontrado = false;
+  while($i<$n && $encontrado == false){
 
-  foreach ($llamarPartidas as $indice => $jugadorEncontrado){
-    if ($jugadorEncontrado["jugador"] == $nombreJugador && $jugadorEncontrado["puntaje"] != 0){
-      $jugadorEncontrado = $indice;
-      break;
-    }else{
-      $jugadorEncontrado = -1;
+    if($llamarPartidas[$i]["jugador"] == $nombreJugador && $llamarPartidas[$i]["puntaje"] != 0){
+      $jugadorEncontrado = $i;
+      $encontrado = true;
     }
+    $i = $i +1;
   }
+  if (!$encontrado){
+    $jugadorEncontrado = -1;
+  }
+
   return $jugadorEncontrado;
+
+
 }
 
 /**
@@ -334,8 +342,7 @@ $palabras = cargarColeccionPalabras();
 
 //Proceso:
 
-llamarDatosPartidas(1,$partidas);
-
+echo primeraPartidaGanada("fede",$partidas);
 
 
 //Inicia el juego
