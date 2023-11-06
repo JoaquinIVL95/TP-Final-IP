@@ -119,34 +119,39 @@ function cargarPartidas(){
 /**
  * Funcion 6 para llamar datos de partidas jugadas
  * @param INT $numPartida
+ * @param ARRAY $partidasCargadas
  */
-function llamarDatosPartidas (){
+function llamarDatosPartidas ($numPartida, $partidasCargadas){
   /*STRING $partidasCargadas  */
-  $partidasCargadas = cargarPartidas();
+  
 
-  echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
+  // echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
 
-  $partidaValida = solicitarNumeroEntre(0 , count($partidasCargadas)-1); 
       
   echo "****************************************\n";
-  echo "Partida WORDIX " . $partidasCargadas[$partidaValida-1]["partida"] . ": Palabra: " . $partidasCargadas[$partidaValida-1]["palabra"] . "\n";
-  echo "Jugador: " . $partidasCargadas[$partidaValida-1]["jugador"] . "\n";
-  echo "Puntaje: " . $partidasCargadas[$partidaValida-1]["puntaje"] . " puntos \n";
-  echo "Intentos: " . $partidasCargadas[$partidaValida-1]["intento"] . "\n";
+  echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabra"] . "\n";
+  echo "Jugador: " . $partidasCargadas[$numPartida]["jugador"] . "\n";
+  echo "Puntaje: " . $partidasCargadas[$numPartida]["puntaje"] . " puntos \n";
+  if ($partidasCargadas[$numPartida]["intento"] == 0){
+    echo "Intentos: no adivinó la palabra\n";
+  }else{
+    echo "Intentos: Adivino la palabra en " . $partidasCargadas[$numPartida]["intento"] . " intentos\n";
+  }
+  
   echo "****************************************\n";
 }
 
 /**
  * Funcion 7 para agregar nuevas palabras al juego
  * @param STRING $palabraNueva
+ * @param ARRAY $palabrasGuardadas
  * @return
  */
- function agregarPalabra ($palabraNueva){
-  /* STRING $palabrasGuardadas, $palabraNueva */
+ function agregarPalabra ($palabraNueva,$palabrasGuardadas){
+  /* STRING , $palabraNueva */
 
-  $palabrasGuardadas = cargarColeccionPalabras();
 
-  array_push ($palabrasGuardadas, $palabraNueva);
+  array_push ($palabrasGuardadas, strtoupper($palabraNueva));
 
   return $palabrasGuardadas;
 }
@@ -154,21 +159,29 @@ function llamarDatosPartidas (){
 /**
  * Funcion 8 para determinar que partida fue la primera partida ganada de un jugador
  * @param STRING $nombreJugador
+ * @param ARRAY $llamarPartidas
  * @return INT
  */
-function primeraPartidaGanada($nombreJugador){
-  /*Variables internas */
-  $llamarPartidas = cargarPartidas();
+function primeraPartidaGanada($nombreJugador,$llamarPartidas){
+  /*Variables internas INT $jugadorEncontrado*/
+  $n = count($llamarPartidas);
+  $i = 0;
+  $encontrado = false;
+  while($i<$n && $encontrado == false){
 
-  foreach ($llamarPartidas as $indice => $jugadorEncontrado){
-    if ($jugadorEncontrado["jugador"] == $nombreJugador && $jugadorEncontrado["puntaje"] != 0){
-      $jugadorEncontrado = $indice;
-      break;
-    }else{
-      $jugadorEncontrado = -1;
+    if($llamarPartidas[$i]["jugador"] == $nombreJugador && $llamarPartidas[$i]["puntaje"] != 0){
+      $jugadorEncontrado = $i;
+      $encontrado = true;
     }
+    $i = $i +1;
   }
+  if (!$encontrado){
+    $jugadorEncontrado = -1;
+  }
+
   return $jugadorEncontrado;
+
+
 }
 
 /**
@@ -252,12 +265,13 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
         $resumenJug ["Puntaje Total"] = $puntajeTotal;
         $resumenJug ["Victorias"] = $victorias;
         $resumenJug ["Porcentaje victorias"] = $porcVict;
-        $resumenJug ["Adivinadas"]["Intento 1"] = $inten1;
-        $resumenJug ["Adivinadas"]["Intento 2"] = $inten2;
-        $resumenJug ["Adivinadas"]["Intento 3"] = $inten3;
-        $resumenJug ["Adivinadas"]["Intento 4"] = $inten4;
-        $resumenJug ["Adivinadas"]["Intento 5"] = $inten5;
-        $resumenJug ["Adivinadas"]["Intento 6"] = $inten6;
+        $resumenJug ["Adivinadas"] = "";
+        $resumenJug ["Intento 1"] = $inten1;
+        $resumenJug ["Intento 2"] = $inten2;
+        $resumenJug ["Intento 3"] = $inten3;
+        $resumenJug ["Intento 4"] = $inten4;
+        $resumenJug ["Intento 5"] = $inten5;
+        $resumenJug ["Intento 6"] = $inten6;
 
         echo "***********************************************\n";
         foreach ($resumenJug as $clave => $valor) {
@@ -328,6 +342,7 @@ $palabras = cargarColeccionPalabras();
 
 //Proceso:
 
+echo primeraPartidaGanada("fede",$partidas);
 
 
 //Inicia el juego
