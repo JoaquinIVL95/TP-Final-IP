@@ -36,80 +36,80 @@ function cargarPartidas(){
   $coleccionPartidas = [
     [
       "partida" => 1,
-      "palabra" => "QUESO",
+      "palabraWordix" => "QUESO",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => 0
+      "intentos" => 0
     ],
     [
       "partida" => 2,
-      "palabra" => "MUJER",
+      "palabraWordix" => "MUJER",
       "jugador" => "joaquin",
       "puntaje" => 14,
-      "intento" => 2
+      "intentos" => 2
     ],
     [
       "partida" => 3,
-      "palabra" => "FUEGO",
+      "palabraWordix" => "FUEGO",
       "jugador" => "fede",
       "puntaje" => 13,
-      "intento" => 1
+      "intentos" => 1
     ],
     [
       "partida" => 4,
-      "palabra" => "CASAS",
+      "palabraWordix" => "CASAS",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => 0
+      "intentos" => 0
     ],
     [
       "partida" => 5,
-      "palabra" => "QUESO",
+      "palabraWordix" => "QUESO",
       "jugador" => "moni",
       "puntaje" => 10,
-      "intento" => 6
+      "intentos" => 6
     ],
     [
       "partida" => 6,
-      "palabra" => "PIANO",
+      "palabraWordix" => "PIANO",
       "jugador" => "moni",
       "puntaje" => 12,
-      "intento" => 4
+      "intentos" => 4
     ],
     [
       "partida" => 7,
-      "palabra" => "MELON",
+      "palabraWordix" => "MELON",
       "jugador" => "joaquin",
       "puntaje" => 0,
-      "intento" => 0
+      "intentos" => 0
     ],
     [
       "partida" => 8,
-      "palabra" => "CABRA",
+      "palabraWordix" => "CABRA",
       "jugador" => "joaquin",
       "puntaje" => 12,
-      "intento" => 4
+      "intentos" => 4
     ],
     [
       "partida" => 9,
-      "palabra" => "CEJAS",
+      "palabraWordix" => "CEJAS",
       "jugador" => "moni",
       "puntaje" => 13,
-      "intento" => 3
+      "intentos" => 3
     ],
     [
       "partida" => 10,
-      "palabra" => "ABETO",
+      "palabraWordix" => "ABETO",
       "jugador" => "joaquin",
       "puntaje" => 13,
-      "intento" => 2
+      "intentos" => 2
     ],
     [
       "partida" => 11,
-      "palabra" => "VERDE",
+      "palabraWordix" => "VERDE",
       "jugador" => "fede",
       "puntaje" => 0,
-      "intento" => 0
+      "intentos" => 0
     ],
   ];
   return $coleccionPartidas;
@@ -129,13 +129,13 @@ function llamarDatosPartidas ($numPartida, $partidasCargadas){
 
       
   echo "****************************************\n";
-  echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabra"] . "\n";
+  echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabraWordix"] . "\n";
   echo "Jugador: " . $partidasCargadas[$numPartida]["jugador"] . "\n";
   echo "Puntaje: " . $partidasCargadas[$numPartida]["puntaje"] . " puntos \n";
-  if ($partidasCargadas[$numPartida]["intento"] == 0){
+  if ($partidasCargadas[$numPartida]["intentos"] == 0){
     echo "Intentos: no adivinó la palabra\n";
   }else{
-    echo "Intentos: Adivino la palabra en " . $partidasCargadas[$numPartida]["intento"] . " intentos\n";
+    echo "Intentos: Adivino la palabra en " . $partidasCargadas[$numPartida]["intentos"] . " intentos\n";
   }
   
   echo "****************************************\n";
@@ -327,7 +327,7 @@ function ordenPorJugador($partGuardadas) {
 
 //Declaración de variables:
 // boolean $salir, $palabraValida
-// int $opcion, $numeroElegido, $numeroAleatorio, $i, $nroDePartida
+// int $opcion, $numeroElegido, $numeroAleatorio, $i, $nroDePartida, $ultimaPartida
 // array $partidas, $palabras, $partida, $palabrasJugadas
 // string $jugador, $palabraElegida, $palabraAleatoria, $palabraPorAgregar
 
@@ -351,12 +351,13 @@ while($salir){
   switch ($opcion) {
     //PRIMER CASO
     case 1: 
+      
       $palabraValida = true;
       $jugador = solicitarNombre();
       $palabrasJugadas = [];
       foreach($partidas as $partidaJugada) {
         if($partidaJugada["jugador"] == $jugador){
-          array_push($palabrasJugadas,$partidaJugada["palabra"]);
+          array_push($palabrasJugadas,$partidaJugada["palabraWordix"]);
         }
       }
       while($palabraValida){
@@ -367,9 +368,10 @@ while($salir){
           $palabraValida = false;
         }
       }
-
+      $ultimaPartida = count($partidas);
       $partida = jugarWordix($palabraElegida,$jugador);
-
+      $partida["partida"] = $ultimaPartida +1;
+      array_push($partidas, $partida);
       break;
 
     //SEGUNDO CASO
@@ -379,7 +381,7 @@ while($salir){
       $palabrasJugadas = [];
       foreach($partidas as $partidaJugada) {
         if($partidaJugada["jugador"] == $jugador){
-          array_push($palabrasJugadas,$partidaJugada["palabra"]);
+          array_push($palabrasJugadas,$partidaJugada["palabraWordix"]);
         }
       }
       
@@ -390,10 +392,10 @@ while($salir){
           $palabraValida = false;
         }
       }
-
+      $ultimaPartida = count($partidas);
       $partida = jugarWordix($palabraAleatoria,$jugador);
-
-
+      $partida["partida"] = $ultimaPartida +1;
+      array_push($partidas, $partida);
       break;
 
     //TERCER CASO
