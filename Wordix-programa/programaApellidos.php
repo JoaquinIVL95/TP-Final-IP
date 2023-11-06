@@ -252,12 +252,13 @@ function mostrarResultJug($nomJugador, $partGuardadas) {
         $resumenJug ["Puntaje Total"] = $puntajeTotal;
         $resumenJug ["Victorias"] = $victorias;
         $resumenJug ["Porcentaje victorias"] = $porcVict;
-        $resumenJug ["Adivinadas"]["Intento 1"] = $inten1;
-        $resumenJug ["Adivinadas"]["Intento 2"] = $inten2;
-        $resumenJug ["Adivinadas"]["Intento 3"] = $inten3;
-        $resumenJug ["Adivinadas"]["Intento 4"] = $inten4;
-        $resumenJug ["Adivinadas"]["Intento 5"] = $inten5;
-        $resumenJug ["Adivinadas"]["Intento 6"] = $inten6;
+        $resumenJug ["Adivinadas"] = "";
+        $resumenJug ["Intento 1"] = $inten1;
+        $resumenJug ["Intento 2"] = $inten2;
+        $resumenJug ["Intento 3"] = $inten3;
+        $resumenJug ["Intento 4"] = $inten4;
+        $resumenJug ["Intento 5"] = $inten5;
+        $resumenJug ["Intento 6"] = $inten6;
 
         echo "***********************************************\n";
         foreach ($resumenJug as $clave => $valor) {
