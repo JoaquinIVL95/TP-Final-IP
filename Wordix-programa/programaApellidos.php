@@ -313,7 +313,7 @@ function ordenPorJugador($partGuardadas) {
 
 //Declaración de variables:
 // boolean $salir
-// int $opcion, $numeroElegido, $numeroAleatorio
+// int $opcion, $numeroElegido, $numeroAleatorio, $i
 // array $partidas, $palabras, $partida
 // string $jugador, $palabraElegida, $palabraAleatoria
 
@@ -336,17 +336,41 @@ while($salir){
   switch ($opcion) {
     case 1: 
       // $partida = jugarWordix("MELON", strtolower("MaJo"));
-
+      $palabraValida = true;
       $jugador = solicitarNombre();
-      echo "Elija un número entre 1 y " . count($palabras) . "\n";
-      $numeroElegido = solicitarNumeroEntre(1, count($palabras));
-      $palabraElegida = $palabras[$numeroElegido -1];
+      $palabrasJugadas = [];
+      foreach($partidas as $key => $partidaJugada) {
+        if($partidaJugada["jugador"] == $jugador){
+          array_push($palabrasJugadas,$partidaJugada["palabra"]);
+        }
+      }
+      while($palabraValida){
+        echo "Elija un número entre 1 y " . count($palabras) . "\n";
+        $numeroElegido = solicitarNumeroEntre(1, count($palabras));
+        $palabraElegida = $palabras[$numeroElegido -1];
+
+      }
+
       $partida = jugarWordix($palabraElegida,$jugador);
       break;
     case 2: 
       $jugador = solicitarNombre();
-      $numeroAleatorio = rand(0,19);
-      $palabraAleatoria = $palabras[$numeroAleatorio];
+      $palabraValida = true;
+      $palabrasJugadas = [];
+      foreach($partidas as $key => $partidaJugada) {
+        if($partidaJugada["jugador"] == $jugador){
+          array_push($palabrasJugadas,$partidaJugada["palabra"]);
+        }
+      }
+      
+      while($palabraValida){
+        $numeroAleatorio = rand(0,19);
+        $palabraAleatoria = $palabras[$numeroAleatorio];
+        if(!in_array($palabraAleatoria,$palabrasJugadas)){
+          $palabraValida = false;
+        }
+      }
+
       $partida = jugarWordix($palabraAleatoria,$jugador);
       break;
     case 3: 
