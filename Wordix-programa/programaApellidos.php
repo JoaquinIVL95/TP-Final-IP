@@ -309,9 +309,11 @@ function solicitarNombre () {
  * @return boolean
  */
 function buscarNombJugador($nombrePedido, $partGuardadas) {
+
     $i = 0;
     $n = count($partGuardadas);
     $encontrado = false;
+
     while ($i < $n && !$encontrado) {
         if ($partGuardadas[$i]["jugador"] == $nombrePedido){
             $encontrado = true;
@@ -322,20 +324,21 @@ function buscarNombJugador($nombrePedido, $partGuardadas) {
 }
 
 /**
- * Comparar los valores de la clave "jugador" de los arreglos a y b y después comparar los valores de la clave "palabra".
- * Retorna un valor según el resultado de la comparación
+ * Comparar los valores de la clave "jugador" de los arreglos a y b y después comparar los valores
+ * de la clave "palabra". Retorna un valor según el resultado de la comparación
  * @param string $a
  * @param string $b
  * @return int
  */
 function comparador($a, $b) {
     if (strcmp($a["jugador"], $b["jugador"]) == 0) {
-        return strcmp($a["palabra"], $b["palabra"]);
+        return strcmp($a["palabraWordix"], $b["palabraWordix"]);
     }
     return strcmp($a["jugador"], $b["jugador"]);
 }
 
-/** Ordenar la coleccion de partidas de acuerdo a la funcion comparador que compara los valores de las claves "jugador" y "palabra"
+/** Ordenar la coleccion de partidas de acuerdo a la funcion comparador que compara los valores de las
+ * claves "jugador" y "palabra"
  * @param array $partGuardadas
  */
 function ordenPorJugador($partGuardadas) {
@@ -431,8 +434,13 @@ while($salir){
     //CUARTO CASO
     case 4: 
       $jugador = solicitarNombre();
-      $nroDePartida = primeraPartidaGanada($jugador,$partidas);
-      llamarDatosPartidas($nroDePartida, $partidas);
+      $esValido = buscarNombJugador($jugador,$partidas);
+      if ($esValido) {
+          $nroDePartida = primeraPartidaGanada($jugador, $partidas);
+          llamarDatosPartidas($nroDePartida, $partidas);
+      } else {
+        echo $jugador." no tiene ninguna partida jugada";
+        }
       break;
 
     //QUINTO CASO
@@ -442,7 +450,7 @@ while($salir){
       if ($esValido) {
           mostrarResultJug($jugador, $partidas);
       } else {
-          echo $jugador." No tiene ninguna partida jugada";
+          echo $jugador." no tiene ninguna partida jugada";
       }
       break;
 
