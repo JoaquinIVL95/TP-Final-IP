@@ -52,15 +52,15 @@ function cargarPartidas(){
       "partida" => 3,
       "palabraWordix" => "FUEGO",
       "jugador" => "fede",
-      "puntaje" => 13,
-      "intentos" => 1
+      "puntaje" => 0,
+      "intentos" => 0
     ],
     [
       "partida" => 4,
       "palabraWordix" => "CASAS",
       "jugador" => "fede",
-      "puntaje" => 0,
-      "intentos" => 0
+      "puntaje" => 10,
+      "intentos" => 2
     ],
     [
       "partida" => 5,
@@ -127,18 +127,22 @@ function llamarDatosPartidas ($numPartida, $partidasCargadas){
 
   // echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
 
-      
-  echo "****************************************\n";
-  echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabraWordix"] . "\n";
-  echo "Jugador: " . $partidasCargadas[$numPartida]["jugador"] . "\n";
-  echo "Puntaje: " . $partidasCargadas[$numPartida]["puntaje"] . " puntos \n";
-  if ($partidasCargadas[$numPartida]["intentos"] == 0){
-    echo "Intentos: no adivinó la palabra\n";
+  if ($numPartida > 0){
+    echo "****************************************\n";
+    echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabraWordix"] . "\n";
+    echo "Jugador: " . $partidasCargadas[$numPartida]["jugador"] . "\n";
+    echo "Puntaje: " . $partidasCargadas[$numPartida]["puntaje"] . " puntos \n";
+    if ($partidasCargadas[$numPartida]["intentos"] == 0){
+      echo "Intentos: no adivinó la palabra\n";
+    }else{
+      echo "Intentos: Adivino la palabra en " . $partidasCargadas[$numPartida]["intentos"] . " intentos\n";
+    }
+    
+    echo "****************************************\n";
   }else{
-    echo "Intentos: Adivino la palabra en " . $partidasCargadas[$numPartida]["intentos"] . " intentos\n";
+    echo "El jugador aun no gano una partida. Elija otro jugador o juege una nueva partida.\n";
   }
   
-  echo "****************************************\n";
 }
 
 /**
