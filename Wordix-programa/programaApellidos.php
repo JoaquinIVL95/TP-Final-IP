@@ -350,12 +350,50 @@ function ordenPorJugador($partGuardadas) {
     print_r($partGuardadas);
 }
 
+/**
+ * Retorna true si una palabra está dentro de un arreglo de palabras
+ * @param string $palabra
+ * @param array $palabras
+ * @return boolean
+ */
+function estaDentroDelArreglo ($palabra, $palabras){
+// int $i
+// boolean $estaDentro
+  $estaDentro = false;
+  $i = 0;
+  while($i< count($palabras) && !$estaDentro){
+    if($palabras[$i] == $palabra){
+      $estaDentro= true;
+    }
+    $i++;
+  }
+  return $estaDentro;
+}
+
+/**
+ * guarda las palabras ya jugadas por el jugador dentro de otro arreglo
+ * @param string $persona
+ * @param array $arregloDePartidas
+ * @return array
+ */
+function obtenerPalabrasJugadas ( $persona, $arregloDePartidas ){
+  // array $palabrasJugadas
+  $palabrasJugadas = [];
+  foreach($arregloDePartidas as $partidaJugada) {
+    if($partidaJugada["jugador"] == $persona){
+      array_push($palabrasJugadas,$partidaJugada["palabraWordix"]);
+    }
+  }
+  return $palabrasJugadas;
+}
+
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
 //Declaración de variables:
+
 // boolean $salir, $palabraValida
 // int $opcion, $numeroElegido, $numeroAleatorio, $i, $nroDePartida, $ultimaPartida
 // array $partidas, $palabras, $partida, $palabrasJugadas
@@ -367,13 +405,8 @@ $partidaValida = true;
 //Precargar estructuras
 $partidas = cargarPartidas();
 $palabras = cargarColeccionPalabras();
-// print_r($partidas);
-
 
 //Proceso:
-
-echo primeraPartidaGanada("fede",$partidas);
-
 
 //Inicia el juego
 while($salir){
@@ -384,19 +417,29 @@ while($salir){
       
       $palabraValida = true;
       $jugador = solicitarNombre();
-      $palabrasJugadas = [];
-      foreach($partidas as $partidaJugada) {
-        if($partidaJugada["jugador"] == $jugador){
-          array_push($palabrasJugadas,$partidaJugada["palabraWordix"]);
-        }
-      }
+      $palabrasJugadas = obtenerPalabrasJugadas($jugador, $partidas);
+      $i = 0;
+
       while($palabraValida){
         echo "Elija un número entre 1 y " . count($palabras) . "\n";
         $numeroElegido = solicitarNumeroEntre(1, count($palabras));
         $palabraElegida = $palabras[$numeroElegido -1];
-        if(!in_array($palabraElegida,$palabrasJugadas)){
+        if(!estaDentroDelArreglo($palabraElegida,$palabrasJugadas)){
           $palabraValida = false;
         }
+        // for($i = 0; $i < count($partidas); $i++){
+        //   for($j = 0; $j < count($palabrasJugadas); $j++){
+        //     if($partidas[$i]["jugador"] == $jugador){
+        //       if($partidas[$i]["palabraWordix"] != $palabrasJugadas[$j]){
+                
+        //         $palabraValida = false; 
+        //         echo $palabraValida;
+        //       }else {
+        //         $palabraValida = true;
+        //       }
+        //     }
+        //   }
+        // }
       }
       $ultimaPartida = count($partidas);
       $partida = jugarWordix($palabraElegida,$jugador);
@@ -408,17 +451,11 @@ while($salir){
     case 2: 
       $jugador = solicitarNombre();
       $palabraValida = true;
-      $palabrasJugadas = [];
-      foreach($partidas as $partidaJugada) {
-        if($partidaJugada["jugador"] == $jugador){
-          array_push($palabrasJugadas,$partidaJugada["palabraWordix"]);
-        }
-      }
-      
+      $palabrasJugadas = obtenerPalabrasJugadas($jugador, $partidas);
       while($palabraValida){
-        $numeroAleatorio = rand(0,19);
+        $numeroAleatorio = rand(0,count($palabras)-1);
         $palabraAleatoria = $palabras[$numeroAleatorio];
-        if(!in_array($palabraAleatoria,$palabrasJugadas)){
+        if(!estaDentroDelArreglo($palabraAleatoria,$palabrasJugadas)){
           $palabraValida = false;
         }
       }
@@ -486,6 +523,5 @@ while($salir){
       break;
   }
 }
-// echo "\n\n\n";
-// print_r($partida);
+
 echo "\n\n\n¡Adios!\n\n\n";
