@@ -506,7 +506,7 @@ while($salir){
       $i = 0;
       while($palabraValida){
         $palabraPorAgregar = leerPalabra5Letras();
-        if(!in_array(strtoupper($palabraPorAgregar), $palabras)){
+        if(!estaDentroDelArreglo(strtoupper($palabraPorAgregar), $palabras)){
           $palabraValida = false;
         }
       }
