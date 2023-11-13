@@ -427,19 +427,6 @@ while($salir){
         if(!estaDentroDelArreglo($palabraElegida,$palabrasJugadas)){
           $palabraValida = false;
         }
-        // for($i = 0; $i < count($partidas); $i++){
-        //   for($j = 0; $j < count($palabrasJugadas); $j++){
-        //     if($partidas[$i]["jugador"] == $jugador){
-        //       if($partidas[$i]["palabraWordix"] != $palabrasJugadas[$j]){
-                
-        //         $palabraValida = false; 
-        //         echo $palabraValida;
-        //       }else {
-        //         $palabraValida = true;
-        //       }
-        //     }
-        //   }
-        // }
       }
       $ultimaPartida = count($partidas);
       $partida = jugarWordix($palabraElegida,$jugador);
