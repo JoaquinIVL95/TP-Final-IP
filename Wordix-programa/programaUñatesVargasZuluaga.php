@@ -122,7 +122,7 @@ function cargarPartidas(){
  * @param ARRAY $partidasCargadas
  */
 function llamarDatosPartidas ($numPartida, $partidasCargadas){
-  /*STRING $partidasCargadas  */
+  
   
 
   // echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
@@ -152,7 +152,7 @@ function llamarDatosPartidas ($numPartida, $partidasCargadas){
  * @return
  */
  function agregarPalabra ($palabraNueva,$palabrasGuardadas){
-  /* STRING , $palabraNueva */
+  
 
 
   array_push ($palabrasGuardadas, strtoupper($palabraNueva));
@@ -167,7 +167,7 @@ function llamarDatosPartidas ($numPartida, $partidasCargadas){
  * @return INT
  */
 function primeraPartidaGanada($nombreJugador,$llamarPartidas){
-  /*Variables internas INT $jugadorEncontrado*/
+  /*Variables internas INT $i, $n, $jugadorEncontrado BOOLEAN $encontrado*/
   $n = count($llamarPartidas);
   $i = 0;
   $encontrado = false;
