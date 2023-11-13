@@ -495,9 +495,12 @@ while($salir){
         $palabraPorAgregar = leerPalabra5Letras();
         if(!estaDentroDelArreglo(strtoupper($palabraPorAgregar), $palabras)){
           $palabraValida = false;
+        } else {
+          echo "\nEsa palabra ya está guardada \n";
         }
       }
       $palabras = agregarPalabra(strtoupper($palabraPorAgregar),$palabras);
+      echo "\nPalabra agregada con éxito\n";
       break;
 
     //OCTAVO CASO
