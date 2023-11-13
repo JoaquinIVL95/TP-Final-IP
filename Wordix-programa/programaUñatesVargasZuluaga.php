@@ -310,10 +310,12 @@ function solicitarNombre () {
 
 /** Buscar el nombre ingresado por el usuario en el arreglo de partidas y devolver
  * si se encuentra o no en las partidas jugadas
+ * @param STRING $nombrePedido
+ * @param ARRAY $partGuardadas
  * @return boolean
  */
 function buscarNombJugador($nombrePedido, $partGuardadas) {
-
+    /* INT $i, $n, BOOLEAN $encontrado*/
     $i = 0;
     $n = count($partGuardadas);
     $encontrado = false;
