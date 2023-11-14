@@ -122,12 +122,8 @@ function cargarPartidas(){
  * @param ARRAY $partidasCargadas
  */
 function llamarDatosPartidas ($numPartida, $partidasCargadas){
-  
-  
 
-  // echo "Elija una partida entre 1 y " . count($partidasCargadas) . "\n";
-
-  if ($numPartida > 0){
+  if ($numPartida >= 0){
     echo "****************************************\n";
     echo "Partida WORDIX " . $partidasCargadas[$numPartida]["partida"] . ": Palabra: " . $partidasCargadas[$numPartida]["palabraWordix"] . "\n";
     echo "Jugador: " . $partidasCargadas[$numPartida]["jugador"] . "\n";
